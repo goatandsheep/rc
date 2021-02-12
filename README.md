@@ -1,6 +1,14 @@
 # run-con
 
-The non-configurable runtime configuration loader for lazy people.
+Based on 
+[RC ![npm downloads](https://img.shields.io/npm/dt/rc.svg?style=flat-square)](https://www.npmjs.com/package/rc)
+
+> The non-configurable runtime configuration loader for lazy people.
+
+[![npm version](https://badgen.net/npm/v/run-con)](https://www.npmjs.com/package/run-con)
+[![dependencies Status](https://badgen.net/david/dep/goatandsheep/run-con)](https://david-dm.org/goatandsheep/run-con)
+[![codecov](https://badgen.net/codecov/c/github/goatandsheep/run-con)](https://codecov.io/gh/goatandsheep/run-con)
+[![npm downloads](https://img.shields.io/npm/dt/run-con.svg?style=flat-square)](https://www.npmjs.com/package/run-con)
 
 ## Usage
 
