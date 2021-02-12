@@ -221,6 +221,9 @@ such as strict, valid JSON only.
 
 `rc` is running `fs.statSync`-- so make sure you don't use it in a hot code path (e.g. a request handler) 
 
+## Credit
+
+Original author is @dominictarr
 
 ## License
 
