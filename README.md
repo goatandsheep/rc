@@ -1,13 +1,13 @@
-# r-c
+# run-con
 
-The non-configurable configuration loader for lazy people.
+The non-configurable runtime configuration loader for lazy people.
 
 ## Usage
 
-The only option is to pass r-c the name of your app, and your default configuration.
+The only option is to pass run-con the name of your app, and your default configuration.
 
 ```javascript
-var conf = require('r-c')(appname, {
+var conf = require('run-con')(appname, {
   //defaults go here.
   port: 2468,
 
@@ -18,19 +18,19 @@ var conf = require('r-c')(appname, {
 });
 ```
 
-`r-c` will return your configuration options merged with the defaults you specify.
+`run-con` will return your configuration options merged with the defaults you specify.
 If you pass in a predefined defaults object, it will be mutated:
 
 ```javascript
 var conf = {};
-require('r-c')(appname, conf);
+require('run-con')(appname, conf);
 ```
 
-If `r-c` finds any config files for your app, the returned config object will have
+If `run-con` finds any config files for your app, the returned config object will have
 a `configs` array containing their paths:
 
 ```javascript
-var appCfg = require('r-c')(appname, conf);
+var appCfg = require('run-con')(appname, conf);
 appCfg.configs[0] // /etc/appnamerc
 appCfg.configs[1] // /home/dominictarr/.config/appname
 appCfg.config // same as appCfg.configs[appCfg.configs.length - 1]
@@ -38,7 +38,7 @@ appCfg.config // same as appCfg.configs[appCfg.configs.length - 1]
 
 ## Standards
 
-Given your application name (`appname`), r-c will look in all the obvious places for configuration.
+Given your application name (`appname`), run-con will look in all the obvious places for configuration.
 
   * command line arguments, parsed by minimist _(e.g. `--foo baz`, also nested: `--foo.bar=baz`)_
   * environment variables prefixed with `${appname}_`
@@ -70,7 +70,7 @@ Configuration files (e.g. `.appnamerc`) may be in either [json](http://json.org/
 dependsOn=0.10.0
 
 
-; `r-c` has built-in support for ini sections, see?
+; `run-con` has built-in support for ini sections, see?
 
 [commands]
   www     = ./commands/www
@@ -114,13 +114,13 @@ Comments are stripped from JSON config via [strip-json-comments](https://github.
 
 > Since ini, and env variables do not have a standard for types, your application needs be prepared for strings.
 
-To ensure that string representations of booleans and numbers are always converted into their proper types (especially useful if you intend to do strict `===` comparisons), consider using a module such as [parse-strings-in-object](https://github.com/anselanza/parse-strings-in-object) to wrap the config object returned from r-c.
+To ensure that string representations of booleans and numbers are always converted into their proper types (especially useful if you intend to do strict `===` comparisons), consider using a module such as [parse-strings-in-object](https://github.com/anselanza/parse-strings-in-object) to wrap the config object returned from run-con.
 
 
 ## Simple example demonstrating precedence
-Assume you have an application like this (notice the hard-coded defaults passed to r-c):
+Assume you have an application like this (notice the hard-coded defaults passed to run-con):
 ```
-const conf = require('r-c')('myapp', {
+const conf = require('run-con')('myapp', {
     port: 12345,
     mode: 'test'
 });
@@ -198,10 +198,10 @@ Here is the expected output from various commands:
 
 #### Pass in your own `argv`
 
-You may pass in your own `argv` as the third argument to `r-c`.  This is in case you want to [use your own command-line opts parser](https://github.com/dominictarr/rc/pull/12).
+You may pass in your own `argv` as the third argument to `run-con`.  This is in case you want to [use your own command-line opts parser](https://github.com/dominictarr/rc/pull/12).
 
 ```javascript
-require('r-c')(appname, defaults, customArgvParser);
+require('run-con')(appname, defaults, customArgvParser);
 ```
 
 ## Pass in your own parser
@@ -211,7 +211,7 @@ you can do so by passing in the parser as the 4th argument.
 (leave the 3rd as null to get the default args parser)
 
 ```javascript
-require('r-c')(appname, defaults, null, parser);
+require('run-con')(appname, defaults, null, parser);
 ```
 
 This may also be used to force a more strict format,
@@ -219,7 +219,7 @@ such as strict, valid JSON only.
 
 ## Note on Performance
 
-`r-c` is running `fs.statSync`-- so make sure you don't use it in a hot code path (e.g. a request handler) 
+`run-con` is running `fs.statSync`-- so make sure you don't use it in a hot code path (e.g. a request handler) 
 
 ## Credit
 
