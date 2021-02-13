@@ -9,6 +9,7 @@ Based on
 [![dependencies Status](https://badgen.net/david/dep/goatandsheep/run-con)](https://david-dm.org/goatandsheep/run-con)
 [![codecov](https://codecov.io/gh/goatandsheep/rc/branch/main/graph/badge.svg?token=8XbycgIgai)](https://codecov.io/gh/goatandsheep/rc)
 [![npm downloads](https://img.shields.io/npm/dt/run-con.svg?style=flat-square)](https://www.npmjs.com/package/run-con)
+[![Known Vulnerabilities](https://snyk.io/test/github/goatandsheep/rc/badge.svg)](https://snyk.io/test/github/goatandsheep/rc)
 
 ## Usage
 
