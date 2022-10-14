@@ -2,6 +2,8 @@ name: Running Code Coverage
 
 on: [push, pull_request]
 
+permissions: read-all
+
 jobs:
   build:
 
