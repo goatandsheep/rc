@@ -2,6 +2,22 @@ name: Auto message for Issues
 on:
   issues:
     types: [opened, reopened]
+
+permissions:
+  actions: none
+  checks: none
+  contents: read
+  deployments: none
+  id-token: write
+  issues: write
+  discussions: none
+  packages: none
+  pages: none
+  pull-requests: none
+  repository-projects: none
+  security-events: none
+  statuses: none
+
 jobs:
   comment:
     name: Hello new contributor
