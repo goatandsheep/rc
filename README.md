@@ -8,8 +8,14 @@ Based on
 [![npm version](https://badgen.net/npm/v/run-con)](https://www.npmjs.com/package/run-con)
 ![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/run-con)
 [![codecov](https://codecov.io/gh/goatandsheep/rc/branch/main/graph/badge.svg?token=8XbycgIgai)](https://codecov.io/gh/goatandsheep/rc)
-[![npm downloads](https://img.shields.io/npm/dt/run-con.svg?style=flat-square)](https://www.npmjs.com/package/run-con)
+[![npm downloads](https://img.shields.io/npm/dt/run-con.svg?style=flat-square)](https://npm-compare.com/run-con#timeRange=THREE_YEARS)
 [![Known Vulnerabilities](https://snyk.io/test/github/goatandsheep/rc/badge.svg)](https://snyk.io/test/github/goatandsheep/rc)
+
+[Usage Trend of run-con](https://npm-compare.com/run-con#timeRange=THREE_YEARS)
+  
+<a href="https://npm-compare.com/run-con#timeRange=THREE_YEARS" target="_blank">
+  <img src="https://npm-compare.com/img/npm-trend/THREE_YEARS/run-con.png" width="640px" alt="npm Usage Trend of run-con" />
+</a>
 
 ## Usage
 
