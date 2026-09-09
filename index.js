@@ -36,11 +36,17 @@ module.exports = function (name, defaults, argv, parse) {
   if (!win)
    [join(etc, name, 'config'),
     join(etc, name + 'rc')].forEach(addConfigFile)
-  if (home)
-   [join(home, '.config', name, 'config'),
-    join(home, '.config', name),
-    join(home, '.' + name, 'config'),
-    join(home, '.' + name + 'rc')].forEach(addConfigFile)
+  if (home) {
+    // Honour the XDG Base Directory Specification:
+    // $XDG_CONFIG_HOME defaults to $HOME/.config when unset or empty.
+    var xdgConfigHome = (process.env.XDG_CONFIG_HOME && process.env.XDG_CONFIG_HOME.trim())
+      ? process.env.XDG_CONFIG_HOME
+      : join(home, '.config')
+    ;[join(xdgConfigHome, name, 'config'),
+      join(xdgConfigHome, name),
+      join(home, '.' + name, 'config'),
+      join(home, '.' + name + 'rc')].forEach(addConfigFile)
+  }
   addConfigFile(cc.find('.'+name+'rc'))
   if (env.config) addConfigFile(env.config)
   if (argv.config) addConfigFile(argv.config)
