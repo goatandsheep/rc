@@ -36,10 +36,12 @@ module.exports = function (name, defaults, argv, parse) {
   if (!win)
    [join(etc, name, 'config'),
     join(etc, name + 'rc')].forEach(addConfigFile)
+  var configDir = process.env.XDG_CONFIG_HOME || (home ? join(home, '.config') : null)
+  if (configDir)
+   [join(configDir, name, 'config'),
+    join(configDir, name)].forEach(addConfigFile)
   if (home)
-   [join(home, '.config', name, 'config'),
-    join(home, '.config', name),
-    join(home, '.' + name, 'config'),
+   [join(home, '.' + name, 'config'),
     join(home, '.' + name + 'rc')].forEach(addConfigFile)
   addConfigFile(cc.find('.'+name+'rc'))
   if (env.config) addConfigFile(env.config)
