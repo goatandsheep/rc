@@ -47,25 +47,24 @@ appCfg.config // same as appCfg.configs[appCfg.configs.length - 1]
 
 ## Standards
 
-Given your application name (`appname`), run-con will look in all the obvious places for configuration.
+Given your application name (`appname`), run-con will look in all the obvious places for configuration. Every entry below is a **file** (entries ending in `/config` are files literally named `config` inside that directory; `<name>rc` entries are files without extensions). Directories and symlinks to directories at any listed path are quietly skipped, while symlinks to files are followed.
 
-  * command line arguments, parsed by minimist _(e.g. `--foo baz`, also nested: `--foo.bar=baz`)_
+The list below is in **LOAD order**; **later-listed sources override earlier-listed ones** (later takes precedence). Every source found is merged via `deep-extend` — the search does not stop at the first hit; command-line arguments take highest precedence, while the passed-in `defaults` object is the base:
+
+  * the defaults object you passed in
+  * `/etc/${appname}/config`
+  * `/etc/${appname}rc`
+  * `$XDG_CONFIG_HOME/${appname}/config`
+  * `$XDG_CONFIG_HOME/${appname}` (bare file)
+  * `$XDG_CONFIG_HOME/${appname}rc`
+    * where `$XDG_CONFIG_HOME` defaults to `$HOME/.config` when unset, empty, or relative (per the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html))
+  * `$HOME/.${appname}/config`
+  * `$HOME/.${appname}rc`
+  * a local `.${appname}rc` or the first found looking in `./ ../ ../../ ../../../` etc.
+  * if you passed an option `--config file` then from that file
   * environment variables prefixed with `${appname}_`
     * or use "\_\_" to indicate nested properties <br/> _(e.g. `appname_foo__bar__baz` => `foo.bar.baz`)_
-  * if you passed an option `--config file` then from that file
-  * a local `.${appname}rc` or the first found looking in `./ ../ ../../ ../../../` etc.
-  * `$HOME/.${appname}rc`
-  * `$HOME/.${appname}/config`
-  * `$XDG_CONFIG_HOME/${appname}rc`
-  * `$XDG_CONFIG_HOME/${appname}`
-  * `$XDG_CONFIG_HOME/${appname}/config`
-    * where `$XDG_CONFIG_HOME` defaults to `$HOME/.config` when unset, empty, or relative (per the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html))
-  * `/etc/${appname}rc`
-  * `/etc/${appname}/config`
-  * the defaults object you passed in.
-
-All configuration sources that were found will be merged into one object using `deep-extend`,
-so that sources **earlier** in this list override later ones (command-line arguments take highest precedence; the defaults object is the base).
+  * command line arguments, parsed by minimist _(e.g. `--foo baz`, also nested: `--foo.bar=baz`)_
 
 
 ## Configuration File Formats
