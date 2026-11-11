@@ -1,5 +1,7 @@
 var cc   = require('./lib/utils')
-var join = require('path').join
+var path = require('path')
+var join = path.join
+var isAbsolute = path.isAbsolute || function (p) { return p.charAt(0) === '/' || /^[a-zA-Z]:[/\\]/.test(p); }
 var deepExtend = require('deep-extend')
 var etc = '/etc'
 var win = process.platform === "win32"
@@ -36,11 +38,23 @@ module.exports = function (name, defaults, argv, parse) {
   if (!win)
    [join(etc, name, 'config'),
     join(etc, name + 'rc')].forEach(addConfigFile)
+
+  // Honour the XDG Base Directory Specification:
+  // $XDG_CONFIG_HOME defaults to $HOME/.config when unset, empty, or relative.
+  var xdgEnv = process.env.XDG_CONFIG_HOME
+  var xdgConfigHome = (xdgEnv && xdgEnv.trim() && isAbsolute(xdgEnv.trim()))
+    ? xdgEnv.trim()
+    : (home ? join(home, '.config') : null)
+
+  if (xdgConfigHome)
+   [join(xdgConfigHome, name, 'config'),
+    join(xdgConfigHome, name),
+    join(xdgConfigHome, name + 'rc')].forEach(addConfigFile)
+
   if (home)
-   [join(home, '.config', name, 'config'),
-    join(home, '.config', name),
-    join(home, '.' + name, 'config'),
+   [join(home, '.' + name, 'config'),
     join(home, '.' + name + 'rc')].forEach(addConfigFile)
+
   addConfigFile(cc.find('.'+name+'rc'))
   if (env.config) addConfigFile(env.config)
   if (argv.config) addConfigFile(argv.config)

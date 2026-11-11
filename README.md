@@ -56,14 +56,16 @@ Given your application name (`appname`), run-con will look in all the obvious pl
   * a local `.${appname}rc` or the first found looking in `./ ../ ../../ ../../../` etc.
   * `$HOME/.${appname}rc`
   * `$HOME/.${appname}/config`
-  * `$HOME/.config/${appname}`
-  * `$HOME/.config/${appname}/config`
+  * `$XDG_CONFIG_HOME/${appname}rc`
+  * `$XDG_CONFIG_HOME/${appname}`
+  * `$XDG_CONFIG_HOME/${appname}/config`
+    * where `$XDG_CONFIG_HOME` defaults to `$HOME/.config` when unset, empty, or relative (per the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html))
   * `/etc/${appname}rc`
   * `/etc/${appname}/config`
   * the defaults object you passed in.
 
-All configuration sources that were found will be flattened into one object,
-so that sources **earlier** in this list override later ones.
+All configuration sources that were found will be merged into one object using `deep-extend`,
+so that sources **earlier** in this list override later ones (command-line arguments take highest precedence; the defaults object is the base).
 
 
 ## Configuration File Formats
